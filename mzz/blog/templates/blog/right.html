@@ -1,0 +1,13 @@
+<div id="sidebar_container">
+  {% for article in mini_articles %}
+  <div class="sidebar">
+    <h2>{{ article.author }}:</h2>
+    <p>{{ article.content }} <br/></p>
+    <p align="right"><a href="{% url 'blog:tips' %}">more</a></p>
+  </div>
+  {% endfor %}
+  <div class="sidebar">
+    <h3>Most Popular</h3>
+    <div class="ds-top-threads" data-range="monthly" data-num-items="5"></div>
+  </div>
+</div>

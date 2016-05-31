@@ -1,0 +1,45 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div id="site_content">
+  <div class="content">
+    {% for article in mini_articles %}
+    <ul>
+        <li>
+        {{ article.author }}:{{ article.content }} (at {{ article.pub_date }})<br/>
+        {% for image in  article.articleimage_set.all %}
+        <a href="{{ image.image.url }}"><img src="/media/{{ image.thumb }}"/></a>
+        {% endfor %}
+        </li>
+    </ul>
+    {% endfor%}
+
+    <!-- 分页 -->
+    <div class="viciao">
+    {% if mini_articles.has_previous %}
+    <a href="?page={{ mini_articles.previous_page_number }}" title="上一页">&lt; Prev</a>
+    {% else %}
+    <span class="disabled">&lt; Prev</span>
+    {% endif %}
+
+    {% for p in page_range %}
+    {% ifequal p mini_articles.number %}
+    <span class="current">{{ p }}</span>
+    {% else %}
+    <a href="?page={{p}}" title="第{{p}}页">{{p}}</a>
+    {% endifequal %}
+    {% endfor %} 
+
+    {% if mini_articles.has_next %}
+    <a href="?page={{ mini_articles.next_page_number }}" title="下一页">Next &gt;</a>
+    {% else %}
+    <span class="disabled">Next &gt;</span> 
+    {% endif %}
+    </div>
+
+    <!-- 多说 -->
+    <div class="ds-thread" data-thread-key=" " data-title="" data-url=" mengzanzan.com/blog/tips"></div>
+  </div>
+</div>
+
+{% endblock content %}

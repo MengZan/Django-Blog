@@ -1,0 +1,61 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div id="site_content">
+  <div class="content">
+    {% if column %}
+    <h3>栏目名称：{{ column.name }}</h3>
+    <p>栏目介绍：{{ column.intro }}</p>
+    <hr/>
+    <hr/>
+    <br/>
+    {% endif %}
+
+    {% for article in articles %}
+    <ul>
+        <li>
+        {% for column in article.columns.all %}
+        <a href="{% url 'blog:column' column.id %}">【{{ column.name }}】</a>
+        {% endfor %}
+        <a href="{% url 'blog:article' article.id %}"><b>{{ article.title }}</b></a>
+        {% if article.author %}
+        ---<a href="{% url 'blog:author_article' article.author %}">{{ article.author }}</a>
+        {% endif %}
+        at {{ article.pub_date }}
+        </li>
+    </ul>
+    {% endfor%}
+
+    <!-- 分页 -->
+    <div class="viciao">
+    {% if articles.has_previous %}
+    <a href="?page={{ articles.previous_page_number }}" title="上一页">&lt; Prev</a>
+    {% else %}
+    <span class="disabled">&lt; Prev</span>
+    {% endif %}
+
+    {% for p in page_range %}
+    {% ifequal p articles.number %}
+    <span class="current">{{ p }}</span>
+    {% else %}
+    <a href="?page={{p}}" title="第{{p}}页">{{p}}</a>
+    {% endifequal %}
+    {% endfor %} 
+
+    {% if articles.has_next %}
+    <a href="?page={{ articles.next_page_number }}" title="下一页">Next &gt;</a>
+    {% else %}
+    <span class="disabled">Next &gt;</span> 
+    {% endif %}
+    </div>
+  
+  </div>
+  {% include "blog/right.html" %}
+
+</div>
+
+{% endblock content %}
+
+
+
+

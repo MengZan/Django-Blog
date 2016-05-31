@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>赤道&北极</title>
+  <meta name="description" content="website description" />
+  <meta name="keywords" content="website keywords, website keywords" />
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+  {% load staticfiles %}
+  <link rel="stylesheet" type="text/css" href="{% static 'blog/css/style.css' %}" />
+  <script type="text/javascript" src="{% static 'blog/js/modernizr-1.5.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'blog/js/jquery.js' %}"></script>
+  <script type="text/javascript" src="{% static 'blog/js/jquery.easing-sooper.js' %}"></script>
+  <script type="text/javascript" src="{% static 'blog/js/jquery.sooperfish.js' %}"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('ul.sf-menu').sooperfish();
+      $('.top').click(function() {$('html, body').animate({scrollTop:0}, 'fast'); return false;});
+    });
+  </script>
+
+  <!-- 多说js -->
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"mengzanzan"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+</script>
+</head>
+
+<body>
+  <div id="main">
+    <header>
+      <div id="logo">
+        <div id="logo_text">
+          <!-- class="logo_colour", allows you to change the colour of the text -->
+          <h1><a href="/"><span class="logo_colour">赤道</span>&北极</a></h1>
+          <h2>Keep on going.</h2>
+        </div>
+      </div>
+      <nav>
+        <div id="menu_container">
+          <ul class="sf-menu" id="nav">
+            <li><a href="/">主页</a></li>
+            <li><a href="{% url 'blog:all_article' %}">文章</a>
+              <ul>
+                {% for column in columns %}
+                <li><a href="{% url 'blog:column' column.id %}">{{ column.name }}</a></li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li><a href="{% url 'blog:tips' %}">点滴</a></li>
+<!--             <li><a href="/blog/tips">相册</a></li> -->
+            <li><a href="{% url 'blog:about' %}">我们</a></li>
+            <li><a href="/admin">后台</a></li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+
+    {% block content %}
+
+    {% endblock content %}
+
+    <div id="scroll">
+      <a title="Scroll to the top" class="top" href="#"><img src="{% static 'blog/images/top.png' %}" alt="top" /></a>
+    </div>
+
+    <footer>
+      <p>@copyright</p>
+    </footer>
+  </div>
+
+  <!-- javascript at the bottom for fast page loading -->
+{% include "baidutongji.html" %}
+</body>
+</html>

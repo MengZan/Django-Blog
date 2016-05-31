@@ -1,0 +1,29 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div id="site_content">
+  <div class="content">
+    {% for article in articles %}
+    <h2 align="center"><a href="{% url 'blog:article' article.id %}">{{ article.title }}</a></h2>
+    <p align="center">
+      <span>{{ article.pub_date }}</span>
+      <span>
+      {% if article.author %}
+      / By: <a href="{% url 'blog:author_article' article.author %}">{{ article.author }}</a>
+      {% endif %}
+      </span>
+      <span>
+      /{% for column in article.columns.all %}
+      <a href="{% url 'blog:column' column.id %}">{{ column.name }}</a>
+      {% endfor %}
+      </span>
+    </p>
+    <p>{{ article.content|safe|truncatechars:200 }}</p>
+    <p align="center"><a href="{% url 'blog:article' article.id %}">-Read More-</a></p>
+    {% endfor%}
+  </div>
+
+  {% include "blog/right.html" %}
+
+</div>
+{% endblock content %}

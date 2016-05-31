@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+ 
+{% block title %} 首页 {% endblock title %}
+ 
+ 
+{% block content %}
+
+<ul>
+    {% for column in  columns %}
+        <li>
+            <a href="{% url 'column' column.id %}"> {{ column.name }} </a>
+        </li>
+    {% endfor %}
+</ul>
+
+<ul>
+    {% for article in  mini_article %}
+        <li>
+            <p>{{ article.author }}: {{ article.content }}<br/>
+            {% for image in  article.articleimage_set.all %}
+            <img src="{{ image.image.url }}" height="150" />
+            {% endfor %}
+            <br/>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
+
+<script type="text/javascript" src="http://mediaplayer.yahoo.com/js"></script>

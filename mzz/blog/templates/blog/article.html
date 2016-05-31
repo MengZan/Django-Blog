@@ -1,0 +1,37 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div id="site_content">
+  <div class="content">
+    <h2 align="center">{{ article.title }}</h2>
+    <p align="center">
+      <span>{{ article.pub_date }}</span>
+      <span>
+      {% if article.author %}
+      / By: <a href="{% url 'blog:author_article' article.author %}">{{ article.author }}</a>
+      {% endif %}
+      </span>
+      <span>
+      /{% for column in article.columns.all %}
+      <a href="{% url 'blog:column' column.id %}">{{ column.name }}</a>
+      {% endfor %}
+      </span>
+    </p>
+    {% if article.keyword_set.all %}
+    <p align="center">
+    关键词：
+    {% for word in article.keyword_set.all %}
+    {{ word.word }}
+    {% endfor %}
+    </p>
+    {% endif %}
+    <p>{{ article.content|safe }}</p>
+
+    <!-- 多说 -->
+    <div class="ds-thread" data-thread-key="{{ article.id }}" data-title="{{ article.title }}" data-url="{{ article.get_absolute_url }}"></div>
+  </div>
+
+  {% include "blog/right.html" %}
+
+</div>
+{% endblock content %}

@@ -1,0 +1,14 @@
+{% extends "blog/base.html" %}
+
+{% block content %}
+<div id="site_content">
+    <div class="leftcontent">
+    <a href="{{ mm.image.url }}"><img src="{{ mm.image.url }}" height="300"/></a></br>
+    {{ mm.content }}
+    </div>
+    <div class="rightcontent">
+    <a href="{{ zz.image.url }}"><img src="{{ zz.image.url }}" height="300"/></a></br>
+    {{ zz.content }}
+    </div>
+</div>
+{% endblock content %}
